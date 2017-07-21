@@ -1,0 +1,60 @@
+Zookeeper
+	一、zookeeper是一个为分布式应用所设计的分布的、开源的协调服务;
+				可以建立在同步配置管理、选举、分布式锁、分组和命名;
+				使用Java语言编写,但是支持Java语言和C语言
+	1.安装zookeeper-3.4.6.tar.gz:
+	  解压zookeeper:tar -zxvf zookeeper-3.4.6.tar.gz
+	  zoo.cfg配置文件(单机模式)：
+		tickTime=2000 单位毫秒,指定心跳
+		dataDir=/var/zookeeper 快照位置
+		clientPort=2181(default port) 监听端口
+	  zoo.cfg配置文件(集群模式):
+		tickTime=2000
+		dataDir=/var/zookeeper/1
+		clientPort=2181
+		initLimit=5
+		syncLimit=2
+		server.1=IP:2887:3887
+		server.2=IP:2888:3888
+		server.3=IP:2889:3889
+	【注意】在对应的dataDir目录下建立myid文件,内容为自身id的值
+	2.Zookeeper在maven中的坐标位置：
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+		Zkclient在maven中的坐标位置：
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.loopfor.zookeeper</groupId>
+			<artifactId>zookeeper-client_2.10</artifactId>
+			<version>1.2</version>
+		</dependency>
+	3.启动zookeeper服务和客户端:
+		./bin/zkServer.sh start ./conf/zoo1.cfg
+		./bin/zkServer.sh start ./conf/zoo2.cfg
+		./bin/zkServer.sh start ./conf/zoo3.cfg
+	    连接集群: ./bin/zkCli.sh -server 127.0.0.1:2181
+				  ./bin/zkCli.sh -server 127.0.0.1:2182
+				  ./bin/zkCli.sh -server 127.0.0.1:2183
+	
+	4.简单操作：
+		创建Node:create /test ' ' 
+		修改Node值:set /test ' '
+		获取Node值:get /test
+		删除Node:delete /test
+		
+		
+
+	
+		
+
+		
+	
+	
+	
